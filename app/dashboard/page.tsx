@@ -1,0 +1,241 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { 
+  ShieldAlert, 
+  Upload, 
+  LogOut, 
+  ChevronDown,
+  Phone,
+  Search,
+  Bell,
+  AlertCircle,
+  Settings,
+  User
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+interface CallData {
+  id: string;
+  date: string;
+  patient: string;
+  duration: string;
+  riskLevel: "high" | "medium" | "low" | "none";
+  status: "new" | "reviewed" | "resolved";
+}
+
+export default function Dashboard() {
+  const [calls, setCalls] = useState<CallData[]>([
+    {
+      id: "call-001",
+      date: "2023-05-15 10:30 AM",
+      patient: "John Smith",
+      duration: "4:35",
+      riskLevel: "high",
+      status: "new"
+    },
+    {
+      id: "call-002",
+      date: "2023-05-15 11:15 AM",
+      patient: "Sarah Johnson",
+      duration: "6:22",
+      riskLevel: "medium",
+      status: "new"
+    },
+    {
+      id: "call-003",
+      date: "2023-05-14 3:45 PM",
+      patient: "Robert Williams",
+      duration: "2:15",
+      riskLevel: "low",
+      status: "reviewed"
+    },
+    {
+      id: "call-004",
+      date: "2023-05-14 1:20 PM",
+      patient: "Emily Davis",
+      duration: "8:10",
+      riskLevel: "none",
+      status: "resolved"
+    },
+    {
+      id: "call-005",
+      date: "2023-05-13 9:45 AM",
+      patient: "Michael Brown",
+      duration: "5:30",
+      riskLevel: "medium",
+      status: "reviewed"
+    }
+  ]);
+  
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case "high": return "text-destructive bg-destructive/10 border-destructive/20";
+      case "medium": return "text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-900/20 dark:border-amber-900/30 dark:text-amber-500";
+      case "low": return "text-green-600 bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-900/30 dark:text-green-500";
+      default: return "text-muted-foreground bg-muted border-muted-foreground/20";
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen bg-muted/30">
+      {/* Sidebar */}
+      <aside className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50 bg-card border-r">
+        <div className="p-4 border-b">
+          <Link href="/" className="flex items-center gap-2">
+            <ShieldAlert className="h-6 w-6 text-primary" />
+            <span className="font-bold text-lg">CallGuard AI</span>
+          </Link>
+        </div>
+        
+        <nav className="flex-1 px-2 py-4 space-y-1">
+          <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-md bg-primary/10 text-primary font-medium">
+            <Phone className="h-5 w-5" />
+            <span>Calls</span>
+          </Link>
+          
+          <Link href="/dashboard/patients" className="flex items-center gap-3 px-3 py-2 rounded-md text-muted-foreground hover:bg-muted transition-colors">
+            <User className="h-5 w-5" />
+            <span>Patients</span>
+          </Link>
+          
+          <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2 rounded-md text-muted-foreground hover:bg-muted transition-colors">
+            <Settings className="h-5 w-5" />
+            <span>Settings</span>
+          </Link>
+        </nav>
+      </aside>
+      
+      {/* Main content */}
+      <div className="flex-1 md:ml-64">
+        {/* Header */}
+        <header className="h-16 border-b bg-card flex items-center justify-between px-4 sticky top-0 z-10">
+          <Button variant="ghost" size="icon" className="md:hidden">
+            <ShieldAlert className="h-5 w-5" />
+          </Button>
+          
+          <div className="flex items-center md:ml-4 w-full max-w-md">
+            <Search className="h-4 w-4 mr-2 text-muted-foreground absolute ml-3" />
+            <Input placeholder="Search calls, patients..." className="pl-9" />
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon">
+              <Bell className="h-5 w-5" />
+            </Button>
+            
+            <ModeToggle />
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span className="text-sm font-medium">JS</span>
+                  </div>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Dr. John Smith</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <Link href="/login">
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
+        
+        {/* Main content */}
+        <main className="p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold mb-1">Patient Calls</h1>
+              <p className="text-muted-foreground">Manage and analyze patient call recordings.</p>
+            </div>
+            
+            <Button className="mt-4 sm:mt-0" size="lg">
+              <Upload className="mr-2 h-4 w-4" />
+              Upload New Call
+            </Button>
+          </div>
+          
+          <Alert className="mb-6 border-chart-1/30 bg-chart-1/10">
+            <AlertCircle className="h-4 w-4 text-chart-1" />
+            <AlertTitle className="text-chart-1">Attention Required</AlertTitle>
+            <AlertDescription>
+              You have 2 high-risk calls that need your review.
+            </AlertDescription>
+          </Alert>
+          
+          <div className="bg-card border rounded-lg overflow-hidden">
+            <div className="p-4 border-b">
+              <h2 className="font-semibold">Recent Calls</h2>
+            </div>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-muted/50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Date & Time</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Patient</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Duration</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Risk Level</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {calls.map((call) => (
+                    <tr key={call.id} className="hover:bg-muted/50">
+                      <td className="px-4 py-3 text-sm">{call.date}</td>
+                      <td className="px-4 py-3 text-sm font-medium">{call.patient}</td>
+                      <td className="px-4 py-3 text-sm">{call.duration}</td>
+                      <td className="px-4 py-3 text-sm">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getRiskColor(call.riskLevel)}`}>
+                          {call.riskLevel.charAt(0).toUpperCase() + call.riskLevel.slice(1)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-muted-foreground bg-muted border">
+                          {call.status.charAt(0).toUpperCase() + call.status.slice(1)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm">
+                        <Button variant="ghost" size="sm">View Details</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}

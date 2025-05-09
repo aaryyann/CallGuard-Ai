@@ -7,6 +7,7 @@ import { ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {signIn} from "next-auth/react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,17 +20,40 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    
-    // This is a demo implementation and would be replaced with actual authentication
-    setTimeout(() => {
+
+    try {
+      setIsLoading(true);
+      const response = await signIn("credentials", {
+        redirect : false,
+        email : email,
+        password : password
+      });
+
+      if (response?.status == 400) {
+        setIsLoading(false)
+        toast({
+          title: "Invalid Crendentials",
+          variant: "destructive",
+        });
+        return
+      }
+
       toast({
         title: "Login successful",
-        description: "Welcome back to CallGuard AI.",
+        description: "Welcome to CallGuard AI. Your account has been created successfully.",
       });
+      router.push("/");
+    }
+    catch (error: any) {
       setIsLoading(false);
-      router.push("/dashboard");
-    }, 1500);
+      toast({
+        title: "login failed",
+        description: error?.response?.data?.message || "Try again",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (

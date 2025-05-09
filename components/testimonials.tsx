@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Quote } from "lucide-react";
+import Img from "next/image";
 
 interface Testimonial {
+  image : string;
   content: string;
   author: string;
   role: string;
@@ -42,18 +43,21 @@ export function Testimonials() {
 
   const testimonials: Testimonial[] = [
     {
+      image : "user1.png",
       content: "CallGuard AI has transformed our patient follow-up process. We've been able to identify several high-risk cases that would have otherwise been missed until their next appointment.",
       author: "Dr. Sarah Johnson",
       role: "Chief of Medicine",
       organization: "Metropolitan Health Partners"
     },
     {
+      image : "user2.png",
       content: "The early detection capabilities of this system are remarkable. We had a patient whose symptoms indicated a potential stroke, and thanks to CallGuard AI's alert, we were able to intervene within hours.",
       author: "Dr. Michael Chen",
       role: "Neurologist",
       organization: "Riverdale Medical Center"
     },
     {
+      image : "user3.png",
       content: "As a clinic administrator, I appreciate the seamless integration with our existing systems. The ROI has been clear - reduced readmissions and better patient outcomes.",
       author: "Jennifer Williams",
       role: "Operations Director",
@@ -89,11 +93,12 @@ export function Testimonials() {
               data-animate
               style={{ animationDelay: `${300 + index * 100}ms` }}
             >
-              <div className="mb-4">
-                <Quote className="h-8 w-8 text-primary/20" />
+              
+              <div>
+                <div className="mb-4">
+                <Img src={testimonial.image} alt="image" width={"1000"} height={"1000"} className="h-14 w-14 p-1 border-2 object-cover rounded-full text-primary/20" />
               </div>
               <p className="mb-6 text-foreground/90">{testimonial.content}</p>
-              <div>
                 <p className="font-semibold">{testimonial.author}</p>
                 <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 <p className="text-sm text-muted-foreground">{testimonial.organization}</p>

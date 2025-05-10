@@ -20,6 +20,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { SessionProvider } from "next-auth/react";
 import UserButton from "@/components/user-button";
+import { UploadCallDialog } from "@/components/upload-call";
 
 interface CallData {
   id: string;
@@ -144,10 +145,7 @@ export default function Dashboard() {
               <p className="text-muted-foreground">Manage and analyze patient call recordings.</p>
             </div>
             
-            <Button className="mt-4 sm:mt-0" size="lg">
-              <Upload className="mr-2 h-4 w-4" />
-              Upload New Call
-            </Button>
+            <UploadCallDialog/>
           </div>
           
           <Alert className="mb-6 border-chart-1/30 bg-chart-1/10">

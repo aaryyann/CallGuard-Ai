@@ -4,18 +4,23 @@ export interface ICall extends Document {
     patientName: string;
     doctorName: string;
     callDate: Date;
-    duration: string;
+    duration: number;
+    audioUrl : string;
     transcript: string;
     keywordsFlagged: string[];
     riskLevel: "Low" | "Medium" | "High" | "None";
-    status: "New" | "Reviewed" | "Resolved";
+    statusValue: "New" | "Reviewed" | "Resolved";
 }
 
 const CallSchema: Schema<ICall> = new mongoose.Schema({
     patientName: { type: String, required: true },
     doctorName: { type: String , required : true},
     callDate: { type: Date, required: true },
-    duration: { type: String, required: true },
+    duration: { type: Number, required: true },
+    audioUrl : {
+        type : String,
+        required : true
+    },
     transcript: { type: String, required: true },
     keywordsFlagged: [{ type: String }],
     riskLevel: {
@@ -23,7 +28,7 @@ const CallSchema: Schema<ICall> = new mongoose.Schema({
         enum: ["Low", "Medium", "High", "None"],
         default: "None"
     },
-    status: {
+    statusValue: {
         type: String,
         enum: ["New", "Reviewed", "Resolved"],
         default: "New"
@@ -33,4 +38,4 @@ const CallSchema: Schema<ICall> = new mongoose.Schema({
 const Call: Model<ICall> =
     mongoose.models.Call || mongoose.model<ICall>("Call", CallSchema);
 
-export default Call;
+export default Call ;

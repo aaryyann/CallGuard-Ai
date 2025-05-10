@@ -7,7 +7,7 @@ import Link from "next/link"
 const UserButton = () => {
     const router = useRouter()
 
-    const { data: session, status } = useSession()
+    const { data: session, status} = useSession()
 
     if (status === 'loading') {
         return (
@@ -52,7 +52,7 @@ const UserButton = () => {
                             <Link href="/">
                                 <DropdownMenuItem>
                                     <LogOut className="mr-2 h-4 w-4" />
-                                    <Button onClick={() => {handleSignOut}}>Logout</Button>
+                                    <Button onClick={handleSignOut}>Logout</Button>
                                 </DropdownMenuItem>
                             </Link>
                         </DropdownMenuContent>

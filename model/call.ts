@@ -9,7 +9,7 @@ export interface ICall extends Document {
     transcript: string;
     keywordsFlagged: string[];
     riskLevel: "Low" | "Medium" | "High" | "None";
-    statusValue: "New" | "Reviewed" | "Resolved";
+    userId : string
 }
 
 const CallSchema: Schema<ICall> = new mongoose.Schema({
@@ -28,10 +28,9 @@ const CallSchema: Schema<ICall> = new mongoose.Schema({
         enum: ["Low", "Medium", "High", "None"],
         default: "None"
     },
-    statusValue: {
-        type: String,
-        enum: ["New", "Reviewed", "Resolved"],
-        default: "New"
+    userId : {
+        type : String,
+        required : true
     }
 });
 

@@ -29,8 +29,40 @@ const handler = NextAuth({
                     if(!isValidPassword){
                         throw new Error("")
                     }
+                    return user
+                }
+                catch(e){
+                    return null
                 }
             }
         })
-    ]
+    ],
+    callbacks : {
+
+        async jwt({token , user}){
+            if(user){
+                token.id = user.id
+                token.email = user.email
+            }
+
+            return token
+        },
+        async session ({session , token}){
+            if(token){
+                session.user = {
+                    email : token.email,
+                    name : token.name
+                }
+            }
+
+            return session
+        }
+    },
+    pages : {
+        signIn : '/login',
+    },
+    secret : process.env.NEXTAUTH_SECRET
 })
+
+
+export {handler as GET , handler as POST}

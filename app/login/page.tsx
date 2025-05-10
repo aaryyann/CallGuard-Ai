@@ -29,7 +29,7 @@ export default function Login() {
         password : password
       });
 
-      if (response?.status == 400) {
+      if (!response?.ok) {
         setIsLoading(false)
         toast({
           title: "Invalid Crendentials",
@@ -42,7 +42,7 @@ export default function Login() {
         title: "Login successful",
         description: "Welcome to CallGuard AI. Your account has been created successfully.",
       });
-      router.push("/");
+      router.push("/dashboard");
     }
     catch (error: any) {
       setIsLoading(false);

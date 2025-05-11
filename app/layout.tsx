@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'CallGuard AI - Medical Risk Detection',
   description: 'An AI-powered assistant that listens to patient calls and flags medical risks before they become emergencies.',
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

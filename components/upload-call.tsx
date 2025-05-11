@@ -62,7 +62,7 @@ export function UploadCallDialog() {
             formDataToSend.append("doctorName", formData.doctor);
             formDataToSend.append("callDate", formData.callDate);
 
-            const response = await fetch('/app/api/call-upload', {
+            const response = await fetch('https://call-guard-ai.devxaryan.xyz/api/call-upload', {
                 method: 'POST',
                 body: formDataToSend,
             });

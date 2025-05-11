@@ -126,7 +126,7 @@ NEXTAUTH_URL=http://localhost:3000
 
 ## 📹 Demo Video
 
-📺  Demo Video: [Click to watch](./demo/callguard-presentation.mp4)
+📺  Demo Video: [Click to watch](./demo/project_presentation.mp4)
 
 ## 👨‍💻 Made By
 

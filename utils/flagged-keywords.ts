@@ -1,11 +1,20 @@
-export const riskKeywords = [
-  "nausea", "vomiting", "dizziness", "headache", "fever", "rash",
-  "swelling", "pain", "chest pain", "shortness of breath", "fainting",
-  "seizure", "diarrhea", "anxiety", "depression", "insomnia",
-  "loss of appetite", "bleeding", "fatigue", "palpitations",
-  "confusion", "itching", "hives", "blurry vision", "tremors",
-  "tightness in chest", "trouble breathing", "swollen face",
-  "rapid heartbeat", "numbness", "slurred speech", "low blood pressure",
-  "high blood pressure", "blackout", "wheezing", "cold sweat",
-  "redness", "burning", "muscle weakness", "joint pain"
-];
+import fs from "fs";
+import csv from "csv-parser";
+
+function loadSymptomsFromCSV(filePath: string): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    const results: string[] = [];
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on("data", (row) => results.push(row["Symptoms"]))
+      .on("end", () => resolve(results))
+      .on("error", reject);
+  });
+}
+
+// This function returns the list of symptoms
+export async function riskKeywords(): Promise<string[]> {
+  const symptoms = await loadSymptomsFromCSV("public/symptoms.csv");
+  return symptoms;
+}
+

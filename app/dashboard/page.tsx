@@ -30,6 +30,9 @@ interface CallData {
   keywordsFlagged?: string[];
   riskLevel: "high" | "medium" | "low" | "none";
   status: "new" | "reviewed" | "resolved";
+  condition? : string,
+  advice? : string,
+  confidenceScore ? : number
   audioUrl?: string;
 }
 
@@ -68,6 +71,9 @@ export default function Dashboard() {
       default: return "text-muted-foreground bg-muted border-muted-foreground/20";
     }
   };
+
+  const highLength =  calls.filter((call) => call.riskLevel === "high").length
+  console.log(calls.length, highLength)
 
   return (
     <div className="flex min-h-screen bg-muted/30">
@@ -137,7 +143,7 @@ export default function Dashboard() {
             <AlertCircle className="h-4 w-4 text-chart-1" />
             <AlertTitle className="text-chart-1">Attention Required</AlertTitle>
             <AlertDescription>
-              You have 2 high-risk calls that need your review.
+              You have {highLength} high-risk calls that need your review.
             </AlertDescription>
           </Alert>
 
@@ -184,7 +190,7 @@ export default function Dashboard() {
       {selectedCall && (
         <CallDetailsDialog
           isOpen={!!selectedCall}
-          onClose={() => setSelectedCall(null)}
+          onClose={() => {setSelectedCall(null)}}
           call={selectedCall}
         />
       )}

@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     if (error) throw error;
 
     const transcriptText = result.results.channels[0].alternatives[0].transcript;
-    const analysis = analyzeTranscript(transcriptText);
+    const analysis = await analyzeTranscript(transcriptText);
 
     fs.unlinkSync(tempPath);
 
@@ -97,12 +97,18 @@ export async function POST(request: NextRequest) {
       transcript: transcriptText,
       keywordsFlagged: analysis.keywordsFlagged,
       riskLevel: analysis.riskLevel,
+      confidenceScore: analysis.confidenceScore,        
+      condition: analysis.condition,                    
+      advice: analysis.advice,                       
+      redFlags: analysis.redFlags,
       userId: userId,
     });
 
     return NextResponse.json(audioData, { status: 201 });
   } catch (e) {
-    fs.unlinkSync(tempPath);
+    if (fs.existsSync(tempPath)) {
+      fs.unlinkSync(tempPath);
+    }
     console.error("Upload failed:", e);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }

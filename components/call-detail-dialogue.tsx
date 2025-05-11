@@ -18,6 +18,9 @@ interface CallDetailsDialogProps {
     keywordsFlagged?: string[];
     riskLevel: "high" | "medium" | "low" | "none";
     status: "new" | "reviewed" | "resolved";
+    condition?: string,
+    advice?: string,
+    confidenceScore?: number
     audioUrl?: string;
   };
 }
@@ -52,7 +55,7 @@ export function CallDetailsDialog({ isOpen, onClose, call }: CallDetailsDialogPr
         <DialogHeader>
           <DialogTitle>Call Details</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Patient Info */}
           <div className="space-y-4">
@@ -65,13 +68,13 @@ export function CallDetailsDialog({ isOpen, onClose, call }: CallDetailsDialogPr
                 {call.riskLevel.charAt(0).toUpperCase() + call.riskLevel.slice(1)} Risk
               </span>
             </div>
-            
+
             {call.doctorName && (
               <p className="text-sm">
                 <span className="font-medium">Doctor:</span> {call.doctorName}
               </p>
             )}
-            
+
             <p className="text-sm">
               <span className="font-medium">Duration:</span> {call.duration}
             </p>
@@ -118,18 +121,38 @@ export function CallDetailsDialog({ isOpen, onClose, call }: CallDetailsDialogPr
             </div>
           )}
 
-          {/* Transcript */}
-          {call.transcript && (
+          {/* Condition */}
+          {call.condition && (
             <div className="space-y-2">
-              <h4 className="font-medium">Call Transcript</h4>
+              <h4 className="font-medium">Patients&apos;s Condition</h4>
               <div className="p-4 bg-muted rounded-lg text-sm">
                 <div className="text-sm max-h-[4.5em] overflow-y-auto custom-scrollbar">
-                  {call.transcript.split('\n').map((line, index) => (
+                  {call.condition.split('\n').map((line, index) => (
                     <p key={index} className="mb-1">{line}</p>
                   ))}
                 </div>
               </div>
             </div>
+          )}
+
+          {/*advice*/}
+          {call.advice && (
+            <div className="space-y-2">
+              <h4 className="font-medium">Advice to patient</h4>
+              <div className="p-4 bg-muted rounded-lg text-sm">
+                <div className="text-sm max-h-[4.5em] overflow-y-auto custom-scrollbar">
+                  {call.advice.split('\n').map((line, index) => (
+                    <p key={index} className="mb-1">{line}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {call.confidenceScore && (
+            <p className="text-sm">
+              <span className="font-medium">Confidence Score:</span> {call.confidenceScore}
+            </p>
           )}
 
           {/* Risk Assessment */}

@@ -1,64 +1,88 @@
+// Enabling dynamic rendering for this route
 export const dynamic = "force-dynamic";
-import bcrypt from "bcryptjs"
-import { NextResponse } from "next/server"
-import User from "@/model/user"
-import { connectionWithDB } from "@/lib/mongodb"
 
+// Importing necessary modules and libraries
+import bcrypt from "bcryptjs"; // For hashing passwords
+import { NextResponse } from "next/server"; // For handling server responses
+import User from "@/model/user"; // User model for database operations
+import { connectionWithDB } from "@/lib/mongodb"; // Function to establish a database connection
 
+// POST handler for user signup
+export async function POST(request: Request) {
+    // Extracting data from the request body
+    const { name, email, password, organization, agreeToTerms } = await request.json();
 
-export async function POST(request : Request){
-    const {name , email , password , organization , agreeToTerms} = await request.json()
-    const isValidMail = (email : string) => {
+    // Helper function to validate email format
+    const isValidMail = (email: string) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for email validation
+        return regex.test(email);
+    };
 
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
-        return regex.test(email)
+    // Validating required fields
+    if (!name || !email || !password || !organization || agreeToTerms == false) {
+        return NextResponse.json(
+            {
+                message: "Fill all fields", // Error message for missing fields
+            },
+            { status: 400 } // HTTP status code for bad request
+        );
     }
 
-    if(!name || !email || !password || !organization || agreeToTerms == false){
-        return NextResponse.json({
-            message : "Fill all fields"
-        },
-        {status : 400})
+    // Validating email format
+    if (!isValidMail(email)) {
+        return NextResponse.json(
+            {
+                message: "Invalid Email", // Error message for invalid email
+            },
+            {
+                status: 400, // HTTP status code for bad request
+            }
+        );
     }
 
-    if(!isValidMail(email)){
-        return NextResponse.json({
-            message : "Invalid Email"
-        },{
-            status : 400
-        })
-    }
+    try {
+        // Establishing a connection with the database
+        await connectionWithDB();
 
-    try{
-        await connectionWithDB()
-        const existingUser = await User.findOne({email})
+        // Checking if a user with the same email already exists
+        const existingUser = await User.findOne({ email });
 
-        if(existingUser){
-            return NextResponse.json({
-                message : "User already exist"
-            },{
-                status : 400
-            })
+        if (existingUser) {
+            return NextResponse.json(
+                {
+                    message: "User already exist", // Error message for duplicate user
+                },
+                {
+                    status: 400, // HTTP status code for bad request
+                }
+            );
         }
 
-        const hashPassword = await bcrypt.hash(password , 5)
-        
-        await User.create({
-            name : name ,
-            email : email,
-            organization : organization,
-            password : hashPassword,
-            agreeToTerms : agreeToTerms
-        })
+        // Hashing the user's password for secure storage
+        const hashPassword = await bcrypt.hash(password, 5);
 
+        // Creating a new user in the database
+        await User.create({
+            name: name,
+            email: email,
+            organization: organization,
+            password: hashPassword,
+            agreeToTerms: agreeToTerms,
+        });
+
+        // Returning a success response
+        return NextResponse.json(
+            {
+                message: "User created", // Success message
+            },
+            {
+                status: 201, // HTTP status code for resource creation
+            }
+        );
+    } catch (e) {
+        // Handling any errors that occur during the process
         return NextResponse.json({
-            message : 'User created'
-        },{
-            status : 201
-        })
-    }catch(e){
-        return NextResponse.json({
-            message : "Something went wrong"
-        })
+            message: "Something went wrong", // Generic error message
+        });
     }
 }

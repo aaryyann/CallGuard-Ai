@@ -24,15 +24,15 @@ interface CallData {
   _id: string;
   callDate: string;
   patientName: string;
-  doctorName: string,
+  doctorName: string;
   duration: number;
   transcript?: string;
   keywordsFlagged?: string[];
   riskLevel: "high" | "medium" | "low" | "none";
   status: "new" | "reviewed" | "resolved";
-  condition? : string,
-  advice? : string,
-  confidenceScore ? : number
+  condition?: string;
+  advice?: string;
+  confidenceScore?: number;
   audioUrl?: string;
 }
 
@@ -54,26 +54,29 @@ export default function Dashboard() {
         if (json.success) {
           setCalls(json.data);
         }
+      } catch (e) {
+        console.log("failed to fetch calls");
       }
-      catch (e) {
-        console.log("failed to fetch calls")
-      }
-    }
+    };
 
-    fetchCalls()
-  }, [])
+    fetchCalls();
+  }, []);
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case "high": return "text-destructive bg-destructive/10 border-destructive/20";
-      case "medium": return "text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-900/20 dark:border-amber-900/30 dark:text-amber-500";
-      case "low": return "text-green-600 bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-900/30 dark:text-green-500";
-      default: return "text-muted-foreground bg-muted border-muted-foreground/20";
+      case "high":
+        return "text-destructive bg-destructive/10 border-destructive/20";
+      case "medium":
+        return "text-amber-600 bg-amber-50 border-amber-200 dark:bg-amber-900/20 dark:border-amber-900/30 dark:text-amber-500";
+      case "low":
+        return "text-green-600 bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-900/30 dark:text-green-500";
+      default:
+        return "text-muted-foreground bg-muted border-muted-foreground/20";
     }
   };
 
-  const highLength =  calls.filter((call) => call.riskLevel === "high").length
-  console.log(calls.length, highLength)
+  const highLength = calls.filter((call) => call.riskLevel === "high").length;
+  console.log(calls.length, highLength);
 
   return (
     <div className="flex min-h-screen bg-muted/30">
@@ -190,7 +193,7 @@ export default function Dashboard() {
       {selectedCall && (
         <CallDetailsDialog
           isOpen={!!selectedCall}
-          onClose={() => {setSelectedCall(null)}}
+          onClose={() => { setSelectedCall(null); }}
           call={selectedCall}
         />
       )}

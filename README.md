@@ -3,7 +3,7 @@
 CallGuard AI is an AI-powered web application that transcribes patient–nurse phone calls and automatically flags potential adverse medical risks using a curated medical symptom database (based on FAERS). It enables healthcare providers to detect high-risk symptoms early and take timely action to prevent emergencies.
 
 ## 🚀 Live Demo
-[🔗 Your Deployment Link Here](https://your-live-link.com)
+[🔗 Your Deployment Link Here](https://call-guard-ai.dvxaryan.xyz)
 
 ## 🎯 Use Case
 This project is built for the Veersa Hackathon — Use Case 1: **Adverse Event Detection from Patient Calls**. The goal is to predict possible medical emergencies by analyzing recorded conversations between patients and nurses or medical agents.
@@ -75,20 +75,23 @@ callguard-ai/
 
 ## 📊 How Risk Prediction Works
 
-1. **Transcript Extraction**  
-   Calls are transcribed using **Deepgram's neural speech recognition** engine.
+1. **🎙️ Transcript Extraction**  
+   Audio calls are transcribed using **Deepgram's neural speech recognition**.
 
-2. **Keyword Matching**  
-   The transcript is scanned against 1000+ medically significant symptom keywords from the FAERS dataset.
+2. **🧠 AI Analysis (Google Gemini)**  
+   The transcript is sent to **Google Gemini**, which performs:
+   - Symptom extraction
+   - Condition prediction
+   - Risk level assessment (`High`, `Medium`, `Low`, `None`)
+   - Confidence scoring (0–100)
+   - Red flag detection
+   - Medical advice generation
 
-3. **Risk Scoring**  
-   - `5+ matches` → 🔴 High Risk  
-   - `3–4 matches` → 🟡 Medium Risk  
-   - `1–2 matches` → 🟢 Low Risk  
-   - `0` → ✅ No risk detected
+3. **🩺 Flagged Keywords**  
+   Detected medical terms are stored and shown alongside the transcript.
 
-4. **Flagged Terms**  
-   Matched terms are stored and displayed alongside the transcript.
+4. **📈 Risk Visualization**  
+   Each call is color-coded by risk level and shows the AI's full interpretation in the dashboard.
 
 ## 📥 Installation & Local Setup
 
@@ -110,10 +113,13 @@ npm run dev
 
 ```env
 DEEPGRAM_API_KEY=your-deepgram-api-key
-CLOUDINARY_API_KEY=xxx
-CLOUDINARY_API_SECRET=xxx
-CLOUDINARY_CLOUD_NAME=xxx
-MONGODB_URI=your-mongo-uri
+GOOGLE_API_KEY=your-google-ai-api-key
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_API_SECRET=your-cloudinary-secret
+NEXT_PUBLIC_CLOUDINARY_NAME=your-cloudinary-name
+MONGODB_URI=your-mongodb-uri
+NEXTAUTH_SECRET=your-random-secret
+NEXTAUTH_URL=http://localhost:3000
 ```
 
 ## 📹 Demo Video

@@ -126,7 +126,7 @@ NEXTAUTH_URL=http://localhost:3000
 
 ## 📹 Demo Video
 
-📺  Demo Video: [Click to watch](./demo/project_presentation.mp4)
+📺  Demo Video: [Click to watch](https://www.youtube.com/watch?v=Gz3yYyZtQZU)
 
 ## 👨‍💻 Made By
 

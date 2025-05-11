@@ -56,17 +56,15 @@ export function UploadCallDialog() {
 
         try {
 
+            const formDataToSend = new FormData();
+            formDataToSend.append("file", formData.file);
+            formDataToSend.append("patientName", formData.patient);
+            formDataToSend.append("doctorName", formData.doctor);
+            formDataToSend.append("callDate", formData.callDate);
+
             const response = await fetch('/api/call-upload', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    patientName: formData.patient,
-                    doctorName: formData.doctor,
-                    callDate: formData.callDate,
-                    file: formData.file,
-                }),
+                body: formDataToSend,
             });
             const data = await response.json();
             if (!response.ok) {

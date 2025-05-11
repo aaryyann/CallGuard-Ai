@@ -18,6 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { SessionProvider } from "next-auth/react";
 import UserButton from "@/components/user-button";
 import { UploadCallDialog } from "@/components/upload-call";
+import { CallDetailsDialog } from "@/components/call-detail-dialogue";
 
 interface CallData {
   _id: string;
@@ -25,11 +26,16 @@ interface CallData {
   patientName: string;
   doctorName: string,
   duration: number;
+  transcript?: string;
+  keywordsFlagged?: string[];
   riskLevel: "high" | "medium" | "low" | "none";
+  status: "new" | "reviewed" | "resolved";
+  audioUrl?: string;
 }
 
 export default function Dashboard() {
   const [calls, setCalls] = useState<CallData[]>([]);
+  const [selectedCall, setSelectedCall] = useState<CallData | null>(null);
 
   useEffect(() => {
     const fetchCalls = async () => {
@@ -165,7 +171,7 @@ export default function Dashboard() {
                       </td>
                       <td className="px-4 py-3 text-sm">{call.doctorName}</td>
                       <td className="px-4 py-3 text-sm">
-                        <Button variant="ghost" size="sm">View Details</Button>
+                        <Button onClick={() => setSelectedCall(call)} variant="ghost" size="sm">View Details</Button>
                       </td>
                     </tr>
                   ))}
@@ -175,6 +181,13 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
+      {selectedCall && (
+        <CallDetailsDialog
+          isOpen={!!selectedCall}
+          onClose={() => setSelectedCall(null)}
+          call={selectedCall}
+        />
+      )}
     </div>
   );
 }

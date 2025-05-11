@@ -3,7 +3,7 @@
 CallGuard AI is an AI-powered web application that transcribes patient–nurse phone calls and automatically flags potential adverse medical risks using a curated medical symptom database (based on FAERS). It enables healthcare providers to detect high-risk symptoms early and take timely action to prevent emergencies.
 
 ## 🚀 Live Demo
-[🔗 Your Deployment Link Here](https://call-guard-ai.dvxaryan.xyz)
+[🔗 Your Deployment Link Here](https://call-guard-ai.devxaryan.xyz)
 [🔗 Figma Design Link](https://www.figma.com/design/bZ88OmsQQZs0u4HLrDnusO/CallGuard_AI?node-id=0-1&m=dev&t=Oxjz0r3DuVDSqeFl-1)
 [🔗 Project Documentation Link](https://1drv.ms/w/s!AsiH8QL1wE6zr3d6ZjcG7xOHjv8C?e=zI4qXT)
 [🔗 Test Case Documentation Link](https://1drv.ms/w/s!AsiH8QL1wE6zr3lKm6wMapF0eKgV?e=CSNba3)

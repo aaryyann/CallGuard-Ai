@@ -1,4 +1,5 @@
 // Importing necessary modules and libraries
+export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import Call from "@/model/call";

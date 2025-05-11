@@ -51,7 +51,7 @@ export function CallDetailsDialog({ isOpen, onClose, call }: CallDetailsDialogPr
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] h-[80%] overflow-scroll">
         <DialogHeader>
           <DialogTitle>Call Details</DialogTitle>
         </DialogHeader>

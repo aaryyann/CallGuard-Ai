@@ -35,22 +35,28 @@ This project is built for the Veersa Hackathon — Use Case 1: **Adverse Event D
 ```
 callguard-ai/
 ├── app/
+│   ├── api/
+│        ├── auth/              # POST and GET calls
+│               ├── signup/
+|               └── login/
+│        └── call-upload/       # Audio upload + transcription handler in Mongodb
 │   ├── dashboard/              # Main dashboard UI
-│   ├── upload/                 # Upload call form/modal
-│   └── calls/
-│       └── [id]/               # Call details page (View button)
+│         └── upload a call/    # upload a call section
+│   ├── login/                  # User login
+│   └── signup/                 # user signup
+├── components/
+|   └── ui/                     # shadcn ui componets
 ├── lib/
+│   ├── utils.ts/               # utility section
 │   └── mongodb.ts              # MongoDB connection logic
 ├── models/
 │   └── call.ts                 # Mongoose schema for call entries
-├── pages/                      # (if using pages dir)
-│   └── api/
-│       └── calls/              # POST and GET calls
-│       └── upload/             # Audio upload + transcription handler
+│   └── user.ts                 # Mongoose schema for user entries
+|
 ├── public/                     # Public assets (optional)
 ├── styles/                     # Global styles or Tailwind config
 ├── utils/
-│   ├── riskKeywords.ts         # List of 1000+ FAERS symptom terms
+│   ├── riskKeywords.ts         # List of 40+ FAERS symptom terms
 │   └── analyzeTranscript.ts    # Function to calculate risk level & keywords
 ├── .env.local                  # Your environment variables
 ├── README.md                   # This file!
@@ -87,8 +93,8 @@ callguard-ai/
 ## 📥 Installation & Local Setup
 
 ```bash
-git clone https://github.com/yourusername/callguard-ai.git
-cd callguard-ai
+git clone https://github.com/aaryyann/CallGuard_AI.git
+cd CallGuard_AI
 
 # Install dependencies
 npm install
@@ -116,9 +122,12 @@ MONGODB_URI=your-mongo-uri
 
 ## 👨‍💻 Made By
 
-Ashray R — Solo Developer  
+Aryan Gupta (Team Lead)
+Ashray Bhardwaj
+Anshika Mishra
+Anshika Shinghal
 Open to collaboration, internship opportunities, and feedback!  
-[GitHub](https://github.com/yourusername) | [LinkedIn](https://linkedin.com/in/yourprofile)
+[GitHub](https://github.com/aaryyann) 
 
 ## 📜 License
 

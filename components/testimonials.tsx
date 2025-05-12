@@ -8,7 +8,6 @@ interface Testimonial {
   content: string;
   author: string;
   role: string;
-  organization: string;
 }
 
 export function Testimonials() {
@@ -46,22 +45,19 @@ export function Testimonials() {
       image : "user1.png",
       content: "CallGuard AI has transformed our patient follow-up process. We've been able to identify several high-risk cases that would have otherwise been missed until their next appointment.",
       author: "Dr. Sarah Johnson",
-      role: "Chief of Medicine",
-      organization: "Metropolitan Health Partners"
+      role: "Chief of Medicine"
     },
     {
       image : "user2.png",
       content: "The early detection capabilities of this system are remarkable. We had a patient whose symptoms indicated a potential stroke, and thanks to CallGuard AI's alert, we were able to intervene within hours.",
       author: "Dr. Michael Chen",
-      role: "Neurologist",
-      organization: "Riverdale Medical Center"
+      role: "Neurologist"
     },
     {
       image : "user3.png",
       content: "As a clinic administrator, I appreciate the seamless integration with our existing systems. The ROI has been clear - reduced readmissions and better patient outcomes.",
       author: "Jennifer Williams",
       role: "Operations Director",
-      organization: "Family Care Associates"
     }
   ];
 
@@ -101,7 +97,7 @@ export function Testimonials() {
               <p className="mb-6 text-foreground/90">{testimonial.content}</p>
                 <p className="font-semibold">{testimonial.author}</p>
                 <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.organization}</p>
+                <p className="text-sm text-muted-foreground">AI Generated Testimonials</p>
               </div>
             </div>
           ))}

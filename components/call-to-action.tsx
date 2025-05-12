@@ -58,7 +58,7 @@ export function CallToAction() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/signup">
               <Button size="lg" className="w-full sm:w-auto">
-                Start Your Free Trial
+                Start Your Trial
               </Button>
             </Link>
             <Link href="/contact">

@@ -99,7 +99,7 @@ export function Footer() {
         
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} CallGuard AI. All rights reserved.
+            © {currentYear} CallGuard AI. All rights reserved by Just Code It (A4) Memebers.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">

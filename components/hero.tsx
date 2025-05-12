@@ -7,7 +7,6 @@ import {
   ShieldAlert, 
   AlertCircle, 
   PhoneCall, 
-  CheckCircle 
 } from "lucide-react";
 
 export function Hero() {
@@ -33,7 +32,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-4 pt-2">
               <Link href="/signup">
                 <Button size="lg" className="rounded-full">
-                  Start Free Trial
+                  Start Your Trial
                 </Button>
               </Link>
               <Link href="#how-it-works">

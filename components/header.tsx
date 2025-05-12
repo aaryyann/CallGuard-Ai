@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { ShieldAlert, Menu, X } from 'lucide-react';
+import { SessionProvider } from 'next-auth/react';
+import UserButton from './user-button';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,17 +57,15 @@ export function Header() {
             >
               Pricing
             </Link>
+            <Link 
+              href="/dashboard" 
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Dashboard
+            </Link>
           </nav>
           
-          <div className="flex items-center gap-4">
-            <ModeToggle />
-            <Link href="/login">
-              <Button variant="outline">Login</Button>
-            </Link>
-            <Link href="/signup">
-              <Button>Sign Up</Button>
-            </Link>
-          </div>
+          <SessionProvider><UserButton/></SessionProvider>
         </div>
         
         <div className="md:hidden flex items-center gap-4">

@@ -1,13 +1,14 @@
-import { ChevronDown, Loader, LogOut, Settings, User } from "lucide-react"
+import { ChevronDown, Home, Loader, LogOut, Settings, User } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
 import Link from "next/link"
+import { ModeToggle } from "./mode-toggle"
 const UserButton = () => {
     const router = useRouter()
 
-    const { data: session, status} = useSession()
+    const { data: session, status } = useSession()
 
     if (status === 'loading') {
         return (
@@ -45,6 +46,12 @@ const UserButton = () => {
                                 <span>Profile</span>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
+                                <Home className="mr-2 h-4 w-4" />
+                                <Link href="/">
+                                    Home
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
                                 <Settings className="mr-2 h-4 w-4" />
                                 <span>Settings</span>
                             </DropdownMenuItem>
@@ -58,12 +65,14 @@ const UserButton = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ) : (
-                    <div className="flex justify-end p-4 gap-4">
-
-                        <Button>
-                            <Link href={"/login"}>Login</Link>
-                        </Button>
-
+                    <div className="flex items-center gap-4">
+                        <ModeToggle />
+                        <Link href="/login">
+                            <Button variant="outline">Login</Button>
+                        </Link>
+                        <Link href="/signup">
+                            <Button>Sign Up</Button>
+                        </Link>
                     </div>
                 )
             }

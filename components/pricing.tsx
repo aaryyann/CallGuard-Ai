@@ -47,7 +47,7 @@ export function Pricing() {
   const tiers: PricingTier[] = [
     {
       name: "Starter",
-      price: "$299",
+      price: "₹299",
       description: "Perfect for small practices handling up to 100 patient calls per month.",
       features: [
         "Up to 100 call analyses per month",
@@ -60,7 +60,7 @@ export function Pricing() {
     },
     {
       name: "Professional",
-      price: "$599",
+      price: "₹599",
       description: "Ideal for growing clinics with moderate call volume and advanced needs.",
       features: [
         "Up to 500 call analyses per month",

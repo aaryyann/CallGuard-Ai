@@ -12,6 +12,9 @@ CallGuard AI is an AI-powered web application that transcribes patient–nurse p
 
 📺  Demo Video: [Click to watch](https://www.youtube.com/watch?v=Gz3yYyZtQZU)
 
+### 🔊 Audio Sample
+[Click here to listen](./public/audio.mp3)
+
 ## 🎯 Use Case
 This project is built for the Veersa Hackathon — Use Case 1: **Adverse Event Detection from Patient Calls**. The goal is to predict possible medical emergencies by analyzing recorded conversations between patients and nurses or medical agents.
 

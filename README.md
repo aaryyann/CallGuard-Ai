@@ -8,9 +8,6 @@ CallGuard AI is an AI-powered web application that transcribes patient–nurse p
 [🔗 Project Documentation Link](https://1drv.ms/w/s!AsiH8QL1wE6zr3d6ZjcG7xOHjv8C?e=zI4qXT)
 [🔗 Test Case Documentation Link](https://1drv.ms/w/s!AsiH8QL1wE6zr3lKm6wMapF0eKgV?e=CSNba3)
 
-## 📹 Demo Video
-
-📺  Demo Video: [Click to watch](https://www.youtube.com/watch?v=Gz3yYyZtQZU)
 
 ### 🔊 Audio Sample
 [Click here to listen](./public/audio.mp3)
@@ -132,12 +129,10 @@ NEXTAUTH_SECRET=your-random-secret
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-## 👨‍💻 Made By
+## Guided By 
+- Likhilesh Sir (Programming Pathashala)
 
-Aryan Gupta (Team Lead)
-Ashray Bhardwaj
-Anshika Mishra
-Anshika Shinghal
+
 Open to collaboration, internship opportunities, and feedback!  
 [GitHub](https://github.com/aaryyann) 
 
